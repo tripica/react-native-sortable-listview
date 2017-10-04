@@ -245,6 +245,7 @@ class SortableListView extends React.Component {
   };
 
   measureWrapper = () => {
+    if (!this.refs.wrapper) return;
     this.refs.wrapper.measure((frameX, frameY, frameWidth, frameHeight, pageX, pageY) => {
       const layout = {
         frameX,
@@ -412,7 +413,7 @@ class SortableListView extends React.Component {
 
   componentDidMount() {
     InteractionManager.runAfterInteractions(() => {
-      setTimeout(this.measureWrapper, 0);
+      this.timer = setTimeout(this.measureWrapper, 0);
     });
   }
 
@@ -421,6 +422,7 @@ class SortableListView extends React.Component {
   }
 
   componentWillUnmount() {
+    this.timer && clearTimeout(this.timer);
     this.state.pan.removeListener(this.listener);
   }
 
