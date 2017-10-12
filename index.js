@@ -21,6 +21,7 @@ class Row extends React.Component {
   }
 
   handleLongPress = e => {
+    if (this.refs.view) return;
     this.refs.view.measure((frameX, frameY, frameWidth, frameHeight, pageX, pageY) => {
       const layout = { frameHeight, pageY };
       this.props.onRowActive({
@@ -39,6 +40,7 @@ class Row extends React.Component {
   }
 
   measure = (...args) => {
+    if (this.refs.view) return;
     this.refs.view.measure(...args);
   };
 
